@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biografi & Keteladanan Utsman bin Affan</title>
+    
+    <!-- Fonts: Inter for UI, Amiri for Arabic -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        arabic: ['Amiri', 'serif'],
+                    },
+                    colors: {
+                        emerald: {
+                            50: '#ecfdf5',
+                            100: '#d1fae5',
+                            500: '#10b981',
+                            600: '#059669',
+                            700: '#047857',
+                            800: '#065f46',
+                            900: '#064e3b',
+                        },
+                        gold: {
+                            400: '#fbbf24',
+                            500: '#f59e0b',
+                            600: '#d97706',
+                        }
+                    },
+                    animation: {
+                        'float': 'float 3s ease-in-out infinite',
+                        'fade-in': 'fadeIn 0.5s ease-out forwards',
+                        'slide-up': 'slideUp 0.6s ease-out forwards',
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        slideUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- html2pdf.js for Report Generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+    <style>
+        body {
+            background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+        }
+        .hidden-screen { display: none !important; }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; height: 8px;}
+        ::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb { background: #10b981; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #059669; }
+
+        .arabic-text { direction: rtl; text-align: right; line-height: 2.2; }
+        
+        /* Toast Notification */
+        #toast-container { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); z-index: 9999; display: flex; flex-direction: column; gap: 10px; width: 90%; max-width: 400px;}
+        .toast { padding: 12px 20px; border-radius: 8px; color: white; font-weight: 600; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1); animation: slideDown 0.3s ease-out forwards; }
+        .toast.error { background-color: #ef4444; }
+        .toast.success { background-color: #10b981; }
+        .toast.info { background-color: #3b82f6; }
+        @keyframes slideDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Print formatting */
+        @media print {
+            body { background: white; }
+            .no-print { display: none !important; }
+            #pdf-content { display: block !important; padding: 0; margin: 0; color: black;}
+        }
+    </style>
+</head>
+<body class="text-gray-800 antialiased selection:bg-emerald-200 selection:text-emerald-900">
+
+    <!-- TOAST CONTAINER -->
+    <div id="toast-container"></div>
+
+    <!-- 1. SPLASH SCREEN -->
+    <div id="splash-screen" class="fixed inset-0 z-50 bg-emerald-700 flex flex-col items-center justify-center transition-opacity duration-500">
+        <div class="animate-pulse-slow flex flex-col items-center">
+            <i class="fas fa-book-open text-6xl text-gold-400 mb-4"></i>
+            <h1 class="text-3xl md:text-5xl font-bold text-white tracking-wide text-center px-4">MPI Akidah Akhlak</h1>
+            <p class="text-emerald-100 mt-2 text-lg">Membangun Karakter Generasi Qur'ani</p>
+        </div>
+        <div class="mt-8 w-16 h-16 border-4 border-emerald-500 border-t-gold-400 rounded-full animate-spin"></div>
+    </div>
+
+    <!-- 2. COVER SCREEN -->
+    <div id="cover-screen" class="hidden-screen min-h-screen flex flex-col items-center justify-center p-4 relative overflow-hidden">
+        <div class="absolute top-[-10%] left-[-10%] w-64 h-64 bg-emerald-300 rounded-full mix-blend-multiply filter blur-3xl opacity-50"></div>
+        <div class="absolute bottom-[-10%] right-[-10%] w-80 h-80 bg-gold-300 rounded-full mix-blend-multiply filter blur-3xl opacity-50"></div>
+
+        <div class="glass-panel rounded-3xl p-8 max-w-2xl w-full text-center relative z-10 animate-slide-up">
+            <div class="inline-block bg-emerald-100 text-emerald-800 px-4 py-1 rounded-full text-sm font-semibold mb-4 border border-emerald-200 shadow-sm">
+                Akidah Akhlak • MTs Kelas IX / Fase D
+            </div>
+            <h1 class="text-3xl md:text-5xl font-extrabold text-emerald-900 mb-2 leading-tight">
+                Biografi & Keteladanan <br>
+                <span class="text-gold-600">Utsman bin Affan</span>
+            </h1>
+            
+            <div class="my-8 flex justify-center animate-float">
+                <svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="100" cy="100" r="90" fill="#ecfdf5"/>
+                    <path d="M100 20 L180 60 L180 140 L100 180 L20 140 L20 60 Z" fill="#d1fae5" stroke="#10b981" stroke-width="4"/>
+                    <path d="M60 100 L90 130 L140 70" stroke="#d97706" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="100" cy="100" r="40" fill="#10b981" opacity="0.2"/>
+                    <path d="M70 120 Q100 150 130 120" stroke="#065f46" stroke-width="4" fill="none" stroke-linecap="round"/>
+                </svg>
+            </div>
+
+            <div class="flex flex-col md:flex-row gap-4 justify-center mt-6">
+                <button onclick="toggleModal('modal-pengembang')" class="px-6 py-3 bg-white text-emerald-700 font-semibold rounded-xl border-2 border-emerald-200 hover:bg-emerald-50 hover:border-emerald-500 transition shadow-sm flex items-center justify-center gap-2">
+                    <i class="fas fa-user-tie"></i> Info Pengembang
+                </button>
+                <button onclick="toggleModal('modal-tujuan')" class="px-6 py-3 bg-white text-emerald-700 font-semibold rounded-xl border-2 border-emerald-200 hover:bg-emerald-50 hover:border-emerald-500 transition shadow-sm flex items-center justify-center gap-2">
+                    <i class="fas fa-bullseye"></i> Tujuan Pembelajaran
+                </button>
+            </div>
+            
+            <button onclick="navigate('cover-screen', 'login-screen')" class="mt-6 w-full md:w-auto px-10 py-4 bg-gradient-to-r from-emerald-600 to-emerald-500 text-white text-xl font-bold rounded-xl hover:from-emerald-700 hover:to-emerald-600 transition shadow-lg hover:shadow-emerald-500/50 flex items-center justify-center gap-3 mx-auto">
+                MULAI BELAJAR <i class="fas fa-arrow-right"></i>
+            </button>
+        </div>
+
+        <!-- MODAL PENGEMBANG -->
+        <div id="modal-pengembang" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm transition-opacity">
+            <div class="bg-white rounded-3xl p-6 max-w-md w-full shadow-2xl relative">
+                <button onclick="toggleModal('modal-pengembang')" class="absolute top-4 right-4 text-gray-400 hover:text-red-500"><i class="fas fa-times text-2xl"></i></button>
+                <div class="text-center">
+                    <div class="w-24 h-24 mx-auto bg-emerald-100 rounded-full border-4 border-gold-400 overflow-hidden mb-4 shadow-inner relative flex items-center justify-center">
+                        <span class="absolute text-3xl font-bold text-emerald-700 z-0">SI</span>
+                        <img src="https://freeimage.host/i/nb06QVV" alt="Salma Ibrahim" class="w-full h-full object-cover relative z-10" onerror="this.style.display='none'">
+                    </div>
+                    <h2 class="text-2xl font-bold text-emerald-900">Salma Ibrahim, S.Pd.i</h2>
+                    <p class="text-emerald-600 font-medium mb-1"><i class="fas fa-school"></i> MTs Al-Mubarak Marisa</p>
+                    <p class="text-gray-500 text-sm mb-4"><i class="fas fa-envelope"></i> guru.madrasah@kemenag.go.id</p>
+                    <div class="bg-gray-50 p-4 rounded-xl text-sm text-gray-600 border border-gray-100">
+                        Senior Instructional Designer & Ahli Kurikulum Berbasis Cinta Kemenag RI.
+                    </div>
+                    <button onclick="toggleModal('modal-pengembang')" class="mt-6 w-full py-2 bg-emerald-100 text-emerald-800 font-semibold rounded-lg hover:bg-emerald-200 transition">Kembali ke Cover</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- MODAL TUJUAN PEMBELAJARAN -->
+        <div id="modal-tujuan" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm transition-opacity">
+            <div class="bg-white rounded-3xl p-6 max-w-lg w-full shadow-2xl relative max-h-[90vh] overflow-y-auto custom-scrollbar">
+                <button onclick="toggleModal('modal-tujuan')" class="absolute top-4 right-4 text-gray-400 hover:text-red-500"><i class="fas fa-times text-2xl"></i></button>
+                <h2 class="text-2xl font-bold text-emerald-900 mb-4 border-b pb-2"><i class="fas fa-bullseye text-gold-500"></i> Tujuan Pembelajaran</h2>
+                
+                <div class="space-y-4 text-gray-700 text-justify">
+                    <p class="font-medium">Melalui media ini, peserta didik mampu:</p>
+                    <ul class="list-disc pl-5 space-y-2 bg-emerald-50 p-4 rounded-xl border border-emerald-100">
+                        <li>Menganalisis biografi dan kepribadian luhur Utsman bin Affan r.a.</li>
+                        <li>Mengurutkan proses kodifikasi Al-Qur'an dan nilai pengorbanannya.</li>
+                        <li>Memecahkan masalah sosial dan konservasi (kepedulian lingkungan, khususnya di wilayah pesisir Pohuwato) berbekal inspirasi kedermawanan beliau secara tepat dan penuh cinta.</li>
+                    </ul>
+
+                    <div class="bg-gold-50 p-4 rounded-xl border border-gold-200">
+                        <p class="text-sm font-bold text-gold-700 mb-2">Nilai Kurikulum Berbasis Cinta (KBC):</p>
+                        <p class="text-sm italic">"Meneladani kedermawanan Utsman bin Affan untuk mewujudkan cinta kepada Allah, cinta sesama manusia, dan cinta kelestarian alam ciptaan-Nya di bumi Nusantara."</p>
+                    </div>
+
+                    <div class="text-center pt-2">
+                        <p class="font-arabic arabic-text text-xl text-emerald-800">وَمَا يُلَقَّىٰهَآ إِلَّا ٱلَّذِينَ صَبَرُوا۟ وَمَا يُلَقَّىٰهَآ إِلَّا ذُو حَظٍّ عَظِيمٍ</p>
+                        <p class="text-xs text-gray-500 mt-1">"Sifat-sifat yang baik itu tidak dianugerahkan melainkan kepada orang-orang yang sabar dan tidak dianugerahkan melainkan kepada orang-orang yang mempunyai keuntungan yang besar." (QS. Fussilat: 35)</p>
+                    </div>
+
+                    <button onclick="toggleModal('modal-tujuan')" class="w-full py-3 mt-4 bg-emerald-600 text-white font-semibold rounded-lg hover:bg-emerald-700 transition">Mengerti & Kembali</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. LOGIN SCREEN -->
+    <div id="login-screen" class="hidden-screen min-h-screen flex flex-col items-center justify-center p-4">
+        <div class="glass-panel rounded-3xl p-8 max-w-md w-full animate-slide-up">
+            <div class="text-center mb-6">
+                <i class="fas fa-user-graduate text-5xl text-emerald-600 mb-3"></i>
+                <h2 class="text-2xl font-bold text-gray-800">Identitas Siswa</h2>
+                <p class="text-gray-500 text-sm">Silakan isi data diri sebelum memulai.</p>
+            </div>
+            
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-1">Nama Lengkap</label>
+                    <input type="text" id="input-nama" class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition bg-white/50" placeholder="Masukkan nama...">
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-1">Kelas</label>
+                    <select id="input-kelas" class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition bg-white/50">
+                        <option value="">-- Pilih Kelas --</option>
+                        <option value="IX-A">IX - A</option>
+                        <option value="IX-B">IX - B</option>
+                        <option value="IX-C">IX - C</option>
+                    </select>
+                </div>
+                <button onclick="processLogin()" class="w-full py-4 bg-emerald-600 text-white font-bold rounded-xl hover:bg-emerald-700 transition mt-4 shadow-md flex justify-center items-center gap-2">
+                    LANJUTKAN <i class="fas fa-sign-in-alt"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4. GUIDE & PENGANTAR SCREEN -->
+    <div id="guide-screen" class="hidden-screen min-h-screen flex flex-col items-center justify-center p-4">
+        <div class="glass-panel rounded-3xl p-6 md:p-10 max-w-3xl w-full relative animate-fade-in">
+            <h2 class="text-2xl md:text-3xl font-bold text-emerald-900 mb-2">Selamat Datang, <span id="display-nama-guide" class="text-gold-600">Siswa</span>!</h2>
+            <p class="text-gray-600 mb-6 border-b pb-4">Mari persiapkan diri untuk belajar sejarah dan keteladanan Islam.</p>
+            
+            <!-- Slides Container -->
+            <div id="guide-slides" class="relative min-h-[250px] flex items-center justify-center text-center">
+                <div class="guide-slide w-full transition-opacity duration-300 absolute inset-0 flex flex-col items-center justify-center">
+                    <i class="fas fa-lock-open text-5xl text-emerald-500 mb-4"></i>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Sistem Belajar Bertahap</h3>
+                    <p class="text-gray-600 max-w-md mx-auto">Menu pada aplikasi ini terkunci secara berurutan. Selesaikan menu <b>BELAJAR</b> untuk membuka menu <b>BERMAIN</b>, dan seterusnya.</p>
+                </div>
+                <div class="guide-slide w-full transition-opacity duration-300 absolute inset-0 flex flex-col items-center justify-center opacity-0 pointer-events-none">
+                    <i class="fas fa-map-marked-alt text-5xl text-blue-500 mb-4"></i>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Konteks Wilayah Kita</h3>
+                    <p class="text-gray-600 max-w-md mx-auto">Materi akan dikaitkan dengan kehidupan sehari-hari di Kabupaten Pohuwato, masyarakat pesisir, dan kelestarian Pantai Pohon Cinta.</p>
+                </div>
+                <div class="guide-slide w-full transition-opacity duration-300 absolute inset-0 flex flex-col items-center justify-center opacity-0 pointer-events-none">
+                    <i class="fas fa-star-and-crescent text-5xl text-gold-500 mb-4"></i>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Kurikulum Berbasis Cinta</h3>
+                    <p class="text-gray-600 max-w-md mx-auto">Tanamkan cinta kepada Allah, rasul, sesama manusia, dan alam sekitar melalui teladan Utsman bin Affan r.a.</p>
+                </div>
+            </div>
+
+            <!-- Navigation Controls -->
+            <div class="flex justify-between items-center mt-8">
+                <button id="btn-guide-prev" onclick="changeGuideSlide(-1)" class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition hidden">Kembali</button>
+                <div class="flex gap-2 mx-auto" id="guide-dots">
+                    <div class="w-3 h-3 rounded-full bg-emerald-600"></div>
+                    <div class="w-3 h-3 rounded-full bg-gray-300"></div>
+                    <div class="w-3 h-3 rounded-full bg-gray-300"></div>
+                </div>
+                <button id="btn-guide-next" onclick="changeGuideSlide(1)" class="px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition ml-auto">Selanjutnya</button>
+                <button id="btn-guide-finish" onclick="navigate('guide-screen', 'main-menu-screen'); initMainMenu();" class="px-6 py-2 bg-gradient-to-r from-gold-500 to-gold-400 text-white font-bold rounded-lg hover:from-gold-600 hover:to-gold-500 transition hidden ml-auto shadow-md">Ke Menu Utama</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 5. MAIN MENU (SEQUENTIAL LOCKING) -->
+    <div id="main-menu-screen" class="hidden-screen min-h-screen flex flex-col p-4 md:p-8 max-w-5xl mx-auto">
+        <div class="glass-panel rounded-2xl p-4 flex justify-between items-center mb-8 animate-slide-up">
+            <div class="flex items-center gap-4">
+                <div class="w-12 h-12 bg-emerald-200 text-emerald-800 rounded-full flex items-center justify-center font-bold text-xl border-2 border-white shadow">
+                    <span id="avatar-initial">S</span>
+                </div>
+                <div>
+                    <h3 class="font-bold text-gray-800 text-lg leading-tight" id="display-nama-menu">Nama Siswa</h3>
+                    <p class="text-sm text-emerald-600 font-medium" id="display-kelas-menu">Kelas</p>
+                </div>
+            </div>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Logo_Kementerian_Agama_Republik_Indonesia.png/600px-Logo_Kementerian_Agama_Republik_Indonesia.png" alt="Logo Kemenag" class="h-10 opacity-80" onerror="this.style.display='none'">
+        </div>
+
+        <div class="text-center mb-8 animate-slide-up" style="animation-delay: 0.1s">
+            <h2 class="text-3xl font-extrabold text-emerald-900">Peta Perjalanan Belajar</h2>
+            <p class="text-gray-600 mt-2">Selesaikan misi secara berurutan untuk menjadi insan yang berakhlak mulia.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 flex-grow animate-slide-up" style="animation-delay: 0.2s">
+            <div onclick="openMenu('belajar')" class="glass-panel rounded-3xl p-6 cursor-pointer transform hover:-translate-y-2 transition duration-300 flex flex-col border-t-4 border-emerald-500 relative overflow-hidden group">
+                <div class="absolute top-0 right-0 bg-emerald-500 text-white text-xs font-bold px-3 py-1 rounded-bl-xl z-10"><i class="fas fa-unlock"></i> TERBUKA</div>
+                <div class="bg-emerald-100 w-20 h-20 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition mx-auto">
+                    <i class="fas fa-book-reader text-3xl text-emerald-600"></i>
+                </div>
+                <h3 class="text-xl font-bold text-center text-gray-800 mb-2">1. BELAJAR</h3>
+                <p class="text-center text-sm text-gray-500 flex-grow">Pelajari biografi dan nilai-nilai luhur Utsman bin Affan r.a.</p>
+                <div class="mt-4 w-full h-2 bg-gray-200 rounded-full overflow-hidden">
+                    <div id="progress-belajar" class="h-full bg-emerald-500 w-0 transition-all duration-1000"></div>
+                </div>
+            </div>
+
+            <div id="card-bermain" onclick="openMenu('bermain')" class="glass-panel rounded-3xl p-6 cursor-pointer transform transition duration-300 flex flex-col border-t-4 border-gray-400 relative overflow-hidden group opacity-75 grayscale hover:grayscale-0 focus:grayscale-0">
+                <div id="badge-bermain" class="absolute top-0 right-0 bg-gray-500 text-white text-xs font-bold px-3 py-1 rounded-bl-xl z-10"><i class="fas fa-lock"></i> TERKUNCI</div>
+                <div class="bg-blue-100 w-20 h-20 rounded-full flex items-center justify-center mb-4 mx-auto transition-transform">
+                    <i class="fas fa-gamepad text-3xl text-blue-600"></i>
+                </div>
+                <h3 class="text-xl font-bold text-center text-gray-800 mb-2">2. BERMAIN</h3>
+                <p class="text-center text-sm text-gray-500 flex-grow">Tantangan literasi interaktif menyelesaikan misi kebaikan.</p>
+            </div>
+
+            <div id="card-berlatih" onclick="openMenu('berlatih')" class="glass-panel rounded-3xl p-6 cursor-pointer transform transition duration-300 flex flex-col border-t-4 border-gray-400 relative overflow-hidden group opacity-75 grayscale hover:grayscale-0 focus:grayscale-0">
+                <div id="badge-berlatih" class="absolute top-0 right-0 bg-gray-500 text-white text-xs font-bold px-3 py-1 rounded-bl-xl z-10"><i class="fas fa-lock"></i> TERKUNCI</div>
+                <div class="bg-gold-100 w-20 h-20 rounded-full flex items-center justify-center mb-4 mx-auto transition-transform">
+                    <i class="fas fa-tasks text-3xl text-gold-600"></i>
+                </div>
+                <h3 class="text-xl font-bold text-center text-gray-800 mb-2">3. BERLATIH</h3>
+                <p class="text-center text-sm text-gray-500 flex-grow">Asesmen literasi & numerasi berjenjang untuk evaluasi.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 6. LAYER MENU 1: BELAJAR -->
+    <div id="belajar-screen" class="hidden-screen min-h-screen bg-white">
+        <div class="bg-emerald-600 text-white p-4 sticky top-0 z-40 shadow-md flex justify-between items-center">
+            <button onclick="navigate('belajar-screen', 'main-menu-screen')" class="text-white hover:bg-emerald-700 p-2 rounded-lg transition"><i class="fas fa-arrow-left"></i> Menu</button>
+            <div class="font-bold text-lg">Materi Pembelajaran</div>
+            <div class="text-sm bg-emerald-800 px-3 py-1 rounded-full"><span id="belajar-counter">1</span>/6</div>
+        </div>
+        <div class="max-w-4xl mx-auto p-4 md:p-6 pb-32" id="belajar-content"></div>
+        <div class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] p-4 z-40">
+            <div class="max-w-4xl mx-auto" id="belajar-quiz-container"></div>
+        </div>
+    </div>
+
+    <!-- 7. LAYER MENU 2: BERMAIN -->
+    <div id="bermain-screen" class="hidden-screen min-h-screen bg-blue-50">
+        <div class="bg-blue-600 text-white p-4 sticky top-0 z-40 shadow-md flex justify-between items-center">
+            <button onclick="navigate('bermain-screen', 'main-menu-screen')" class="text-white hover:bg-blue-700 p-2 rounded-lg transition"><i class="fas fa-arrow-left"></i> Kembali</button>
+            <div class="font-bold text-lg">Misi Bermain <i class="fas fa-gamepad"></i></div>
+            <div class="text-sm bg-blue-800 px-3 py-1 rounded-full"><span id="bermain-counter">1</span>/10</div>
+        </div>
+        <div class="max-w-3xl mx-auto p-4 md:p-6 pb-20" id="bermain-content"></div>
+    </div>
+
+    <!-- 8. LAYER MENU 3: BERLATIH (ASESMEN) -->
+    <div id="berlatih-screen" class="hidden-screen min-h-screen bg-gold-50">
+        <div class="bg-gold-600 text-white p-4 sticky top-0 z-40 shadow-md flex justify-between items-center">
+            <button onclick="checkAbortBerlatih()" class="text-white hover:bg-gold-700 p-2 rounded-lg transition"><i class="fas fa-arrow-left"></i> Batal</button>
+            <div class="font-bold text-lg">Asesmen Berlatih <i class="fas fa-pen-alt"></i></div>
+            <div class="text-sm bg-gold-800 px-3 py-1 rounded-full"><span id="berlatih-counter">1</span>/10</div>
+        </div>
+        <div class="max-w-4xl mx-auto p-4 md:p-6 pb-24" id="berlatih-content"></div>
+    </div>
+
+    <!-- 9. LAPORAN HASIL BELAJAR (PDF VIEW) -->
+    <div id="report-screen" class="hidden-screen min-h-screen bg-gray-100 py-8 px-4 flex flex-col items-center">
+        
+        <div class="max-w-3xl w-full flex justify-between items-center mb-6 no-print">
+            <button onclick="navigate('report-screen', 'main-menu-screen')" class="px-4 py-2 bg-white text-gray-700 font-bold rounded-lg shadow hover:bg-gray-50"><i class="fas fa-home"></i> Beranda</button>
+            <button onclick="generatePDF()" class="px-6 py-2 bg-red-600 text-white font-bold rounded-lg shadow-lg hover:bg-red-700 flex items-center gap-2"><i class="fas fa-file-pdf"></i> Unduh / Cetak Laporan PDF</button>
+        </div>
+
+        <div id="pdf-content" class="bg-white max-w-3xl w-full p-8 md:p-12 shadow-2xl rounded-xl">
+            <div class="border-b-4 border-emerald-700 pb-4 mb-6 flex items-center justify-between">
+                <div class="flex items-center gap-4">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Logo_Kementerian_Agama_Republik_Indonesia.png/600px-Logo_Kementerian_Agama_Republik_Indonesia.png" alt="Logo Kemenag" class="h-20" onerror="this.style.display='none'">
+                    <div>
+                        <h2 class="text-2xl font-bold text-gray-800 uppercase">Laporan Hasil Belajar MPI</h2>
+                        <p class="text-sm text-gray-600 font-semibold">Mata Pelajaran: Akidah Akhlak - Kelas IX/Fase D</p>
+                        <p class="text-xs text-gray-500">Materi: Biografi & Keteladanan Utsman bin Affan</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-6 mb-8 text-sm">
+                <div class="bg-emerald-50 p-4 rounded-lg border border-emerald-100">
+                    <p class="font-bold text-emerald-800 mb-2 border-b border-emerald-200 pb-1">Identitas Siswa</p>
+                    <table class="w-full">
+                        <tr><td class="py-1 text-gray-600 w-24">Nama</td><td class="font-semibold">: <span id="report-nama">-</span></td></tr>
+                        <tr><td class="py-1 text-gray-600">Kelas</td><td class="font-semibold">: <span id="report-kelas">-</span></td></tr>
+                        <tr><td class="py-1 text-gray-600">Tanggal</td><td class="font-semibold">: <span id="report-tanggal">-</span></td></tr>
+                    </table>
+                </div>
+                <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                    <p class="font-bold text-gray-700 mb-2 border-b border-gray-300 pb-1">Info Pengembang</p>
+                    <p class="font-semibold text-gray-800">Salma Ibrahim, S.Pd.i</p>
+                    <p class="text-gray-600">MTs Al-Mubarak Marisa</p>
+                    <p class="text-gray-500 text-xs mt-1">Kurikulum Berbasis Cinta (KBC)</p>
+                </div>
+            </div>
+
+            <h3 class="text-xl font-bold text-center text-gray-800 mb-6 bg-gold-100 py-2 rounded">Rincian Performa Evaluasi</h3>
+            
+            <div class="flex justify-center gap-8 mb-8">
+                <div class="text-center">
+                    <div class="w-32 h-32 rounded-full border-8 border-blue-500 flex items-center justify-center mx-auto mb-2 relative">
+                        <span class="text-3xl font-bold text-blue-700" id="report-skor-bermain">0</span>
+                        <span class="absolute -bottom-2 bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs font-bold">BERMAIN</span>
+                    </div>
+                    <p class="text-sm text-gray-600">Akurasi Tantangan</p>
+                </div>
+                <div class="text-center">
+                    <div class="w-32 h-32 rounded-full border-8 border-emerald-500 flex items-center justify-center mx-auto mb-2 relative">
+                        <span class="text-3xl font-bold text-emerald-700" id="report-skor-berlatih">0</span>
+                        <span class="absolute -bottom-2 bg-emerald-100 text-emerald-800 px-2 py-1 rounded text-xs font-bold">NILAI AKHIR</span>
+                    </div>
+                    <p class="text-sm font-bold" id="report-predikat">PREDIKAT: -</p>
+                </div>
+            </div>
+
+            <div class="mb-8">
+                <h4 class="font-bold text-gray-800 border-b-2 border-gray-200 pb-2 mb-3">Analisis Penguasaan Level (Berlatih)</h4>
+                <div class="space-y-3 text-sm">
+                    <div class="flex justify-between items-center bg-gray-50 p-2 rounded">
+                        <span class="font-semibold text-gray-700">Level 1 (Dasar/Pemahaman) - Soal 1-3</span>
+                        <span id="report-lvl1" class="font-bold text-emerald-600">0/3 Benar</span>
+                    </div>
+                    <div class="flex justify-between items-center bg-gray-50 p-2 rounded">
+                        <span class="font-semibold text-gray-700">Level 2 (Penerapan) - Soal 4-7</span>
+                        <span id="report-lvl2" class="font-bold text-emerald-600">0/4 Benar</span>
+                    </div>
+                    <div class="flex justify-between items-center bg-gray-50 p-2 rounded">
+                        <span class="font-semibold text-gray-700">Level 3 (Penalaran HOTS/Masalah) - Soal 8-10</span>
+                        <span id="report-lvl3" class="font-bold text-emerald-600">0/3 Benar</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-green-50 border-l-4 border-emerald-600 p-4 rounded-r-lg">
+                <h4 class="font-bold text-emerald-800 mb-1"><i class="fas fa-leaf text-emerald-600"></i> Catatan Kurikulum Berbasis Cinta (KBC)</h4>
+                <p class="text-sm text-gray-700 mb-3">Peserta didik telah menelaah kedermawanan Utsman bin Affan dan mengaitkannya dengan kesadaran sosial dan pelestarian lingkungan (konservasi pesisir dan mangrove di Kabupaten Pohuwato).</p>
+                
+                <h4 class="font-bold text-gray-800 mb-1">Rekomendasi Guru:</h4>
+                <p class="text-sm text-gray-700 italic" id="report-rekomendasi">-</p>
+            </div>
+            
+            <div class="mt-12 flex justify-end text-sm text-center">
+                <div>
+                    <p class="mb-12">Marisa, <span id="report-ttd-tanggal"></span><br>Guru Mata Pelajaran,</p>
+                    <p class="font-bold underline decoration-1 underline-offset-4">Salma Ibrahim, S.Pd.i</p>
+                    <p class="text-gray-500">NIP. -</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // =========================================================================
+        // DEKLARASI TAUTAN WEB APP GOOGLE APPS SCRIPT (GAS)
+        // Ganti string di bawah ini dengan URL Web App Anda setelah di-deploy.
+        // =========================================================================
+        const GAS_URL = "https://script.google.com/macros/s/AKfycbytjWsbhaokVCb_NXr-bJl6fXmAmaCNC9xF8wCoddRodXJvZAYWg9Z8vvobQEPNSZcG/exec";
+        
+        // --- STATE MANAGEMENT ---
+        let appState = {
+            studentName: '',
+            studentClass: '',
+            unlockedBermain: false,
+            unlockedBerlatih: false,
+            skorBermain: 0,
+            skorBerlatih: 0,
+            
+            belajarSlide: 0,
+            bermainQ: 0,
+            berlatihQ: 0,
+            
+            lvl1Correct: 0,
+            lvl2Correct: 0,
+            lvl3Correct: 0,
+            
+            // Tambahan untuk menyimpan detail jawaban siswa
+            detailJawaban: []
+        };
+
+        // --- UTILITIES ---
+        function showToast(message, type = 'info') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.innerHTML = `<i class="fas fa-${type === 'error' ? 'exclamation-circle' : type === 'success' ? 'check-circle' : 'info-circle'} mr-2"></i> ${message}`;
+            container.appendChild(toast);
+            setTimeout(() => {
+                toast.style.animation = 'slideDown 0.3s ease-in reverse forwards';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        function navigate(fromId, toId) {
+            document.getElementById(fromId).classList.add('hidden-screen');
+            document.getElementById(toId).classList.remove('hidden-screen');
+            window.scrollTo(0,0);
+        }
+
+        function toggleModal(modalId) {
+            const modal = document.getElementById(modalId);
+            modal.classList.toggle('hidden');
+        }
+
+        // --- INIT SPLASH ---
+        window.onload = () => {
+            setTimeout(() => {
+                navigate('splash-screen', 'cover-screen');
+            }, 2000);
+        };
+
+        // --- LOGIN LOGIC ---
+        function processLogin() {
+            const nama = document.getElementById('input-nama').value.trim();
+            const kelas = document.getElementById('input-kelas').value;
+
+            if (!nama || !kelas) {
+                showToast('Mohon isi Nama dan Kelas terlebih dahulu!', 'error');
+                return;
+            }
+
+            appState.studentName = nama;
+            appState.studentClass = kelas;
+            
+            document.getElementById('display-nama-guide').textContent = nama;
+            document.getElementById('display-nama-menu').textContent = nama;
+            document.getElementById('display-kelas-menu').textContent = kelas;
+            document.getElementById('avatar-initial').textContent = nama.charAt(0).toUpperCase();
+
+            navigate('login-screen', 'guide-screen');
+        }
+
+        // --- GUIDE SLIDER ---
+        let currentGuide = 0;
+        function changeGuideSlide(dir) {
+            const slides = document.querySelectorAll('.guide-slide');
+            const dots = document.getElementById('guide-dots').children;
+            
+            slides[currentGuide].classList.add('opacity-0', 'pointer-events-none');
+            dots[currentGuide].classList.replace('bg-emerald-600', 'bg-gray-300');
+            
+            currentGuide += dir;
+            
+            slides[currentGuide].classList.remove('opacity-0', 'pointer-events-none');
+            dots[currentGuide].classList.replace('bg-gray-300', 'bg-emerald-600');
+
+            document.getElementById('btn-guide-prev').classList.toggle('hidden', currentGuide === 0);
+            
+            if (currentGuide === slides.length - 1) {
+                document.getElementById('btn-guide-next').classList.add('hidden');
+                document.getElementById('btn-guide-finish').classList.remove('hidden');
+            } else {
+                document.getElementById('btn-guide-next').classList.remove('hidden');
+                document.getElementById('btn-guide-finish').classList.add('hidden');
+            }
+        }
+
+        // --- MAIN MENU LOGIC ---
+        function initMainMenu() {
+            const updateCard = (id, badgeId, isUnlocked) => {
+                const card = document.getElementById(id);
+                const badge = document.getElementById(badgeId);
+                if (isUnlocked) {
+                    card.classList.remove('opacity-75', 'grayscale', 'border-gray-400');
+                    card.classList.add('border-emerald-500');
+                    badge.className = 'absolute top-0 right-0 bg-emerald-500 text-white text-xs font-bold px-3 py-1 rounded-bl-xl z-10';
+                    badge.innerHTML = '<i class="fas fa-unlock"></i> TERBUKA';
+                }
+            };
+            updateCard('card-bermain', 'badge-bermain', appState.unlockedBermain);
+            updateCard('card-berlatih', 'badge-berlatih', appState.unlockedBerlatih);
+        }
+
+        function openMenu(type) {
+            if (type === 'belajar') {
+                appState.belajarSlide = 0;
+                renderBelajar();
+                navigate('main-menu-screen', 'belajar-screen');
+            } else if (type === 'bermain') {
+                if (!appState.unlockedBermain) {
+                    showToast('Selesaikan menu BELAJAR terlebih dahulu!', 'error');
+                    return;
+                }
+                appState.bermainQ = 0;
+                appState.skorBermain = 0;
+                renderBermain();
+                navigate('main-menu-screen', 'bermain-screen');
+            } else if (type === 'berlatih') {
+                if (!appState.unlockedBerlatih) {
+                    showToast('Selesaikan menu BERMAIN terlebih dahulu!', 'error');
+                    return;
+                }
+                appState.berlatihQ = 0;
+                appState.skorBerlatih = 0;
+                appState.lvl1Correct = 0; appState.lvl2Correct = 0; appState.lvl3Correct = 0;
+                appState.detailJawaban = []; // Reset tracker jawaban
+                renderBerlatih();
+                navigate('main-menu-screen', 'berlatih-screen');
+            }
+        }
+
+        // --- DATA MATERI BELAJAR ---
+        const belajarData = [
+            { title: "1. Nasab dan Gelar Mulia", content: `<p class="mb-4 text-justify">Utsman bin Affan r.a. lahir di Makkah dari Bani Umayyah, suku Quraisy. Beliau memiliki nasab yang mulia dan dikenal sebagai saudagar kaya raya yang jujur. Dalam kesehariannya, layaknya para pedagang di <b>kompleks perkantoran dan pasar Pohuwato</b> yang mencari rezeki halal, Utsman berdagang dengan penuh keberkahan.</p><div class="bg-emerald-50 p-4 rounded-xl border border-emerald-200 mb-4"><h4 class="font-bold text-emerald-800 mb-2">Nilai Cinta Sesama (KBC)</h4><p class="text-sm text-gray-700">Meski kaya, beliau tidak sombong. Harta digunakan untuk membantu sesama, bukan untuk menindas.</p></div><p class="mb-4 text-justify">Beliau mendapat gelar <b>Dzunnurain</b> (Pemilik Dua Cahaya) karena menikahi dua putri Rasulullah SAW secara berurutan, yaitu Ruqayyah dan Ummu Kultsum.</p>`, quiz: { type: 'mc', question: "Apa gelar yang diberikan kepada Utsman bin Affan karena menikahi dua putri Rasulullah?", options: ['Al-Faruq', 'Dzunnurain', 'As-Siddiq'], answer: 1 } },
+            { title: "2. Sifat Pemalu dan Lembut", content: `<p class="mb-4 text-justify">Karakter utama Utsman adalah rasa malunya yang sangat tinggi. Rasulullah SAW bersabda bahwa malaikat pun merasa malu kepada Utsman.</p><p class="text-center font-arabic arabic-text text-xl my-4 text-emerald-800">أَلاَ أَسْتَحِى مِنْ رَجُلٍ تَسْتَحِى مِنْهُ الْمَلاَئِكَةُ</p><p class="text-sm text-gray-600 text-center italic mb-4">"Apakah aku tidak malu kepada seorang laki-laki yang malaikat saja malu kepadanya?" (HR. Muslim)</p><p class="mb-4 text-justify">Sifat pemalu ini mencegah beliau dari perbuatan maksiat, menumbuhkan akhlak mulia dalam berinteraksi, layaknya keramahan warga lokal yang saling menghargai.</p>`, quiz: { type: 'mc', question: "Siapakah makhluk Allah yang disebut Rasulullah merasa malu kepada Utsman bin Affan?", options: ['Jin dan Manusia', 'Malaikat', 'Seluruh hewan di bumi'], answer: 1 } },
+            { title: "3. Kedermawanan Membeli Sumur Ruma", content: `<p class="mb-4 text-justify">Ketika umat Islam hijrah ke Madinah, mereka kesulitan air bersih. Satu-satunya sumber air adalah Sumur Ruma milik seorang Yahudi yang menjual airnya dengan mahal. Bayangkan situasi musim kemarau di <b>pesisir Pohuwato</b> ketika sumber air menipis.</p><p class="mb-4 text-justify">Utsman bin Affan menggunakan hartanya untuk membeli sumur tersebut lalu mewakafkannya agar bisa dinikmati oleh seluruh penduduk, tanpa pandang bulu, secara gratis.</p><div class="bg-blue-50 p-4 rounded-xl border border-blue-200 mb-4"><h4 class="font-bold text-blue-800 mb-2">Cinta Lingkungan & Konservasi (KBC)</h4><p class="text-sm text-gray-700">Wakaf sumur ini adalah bentuk konservasi sumber daya air. Mengingatkan kita untuk menjaga kebersihan perairan <b>Pantai Pohon Cinta</b> dari limbah agar ekosistem tetap terjaga.</p></div>`, quiz: { type: 'mc', question: "Sumur apa yang dibeli Utsman bin Affan untuk mengatasi krisis air di Madinah?", options: ['Sumur Zam-zam', 'Sumur Ruma', 'Sumur Badar'], answer: 1 } },
+            { title: "4. Kedermawanan di Jalan Allah", content: `<p class="mb-4 text-justify">Selain Sumur Ruma, Utsman juga membiayai sepertiga dari seluruh persiapan Pasukan Jaisyul 'Usrah (Pasukan Masa Sulit) pada Perang Tabuk. Beliau menyumbangkan ratusan unta, kuda, dan ribuan dinar.</p><p class="text-center font-arabic arabic-text text-xl my-4 text-emerald-800">مَّثَلُ ٱلَّذِينَ يُنفِقُونَ أَمْوَٰلَهُمْ فِى سَبِيلِ ٱللَّهِ كَمَثَلِ حَبَّةٍ أَنۢبَتَتْ سَبْعَ سَنَابِلَ فِى كُلِّ سُنۢبُلَةٍ مِّائَةُ حَبَّةٍ</p><p class="text-sm text-gray-600 text-center italic mb-4">"Perumpamaan (nafkah yang dikeluarkan oleh) orang-orang yang menafkahkan hartanya di jalan Allah adalah serupa dengan sebutir benih yang menumbuhkan tujuh bulir, pada tiap-tiap bulir seratus biji..." (QS. Al-Baqarah: 261)</p>`, quiz: { type: 'mc', question: "Berapa banyak perumpamaan balasan pahala bagi orang yang berinfak menurut QS. Al-Baqarah 261?", options: ['Dilipatgandakan 10 kali', 'Menumbuhkan 7 bulir, tiap bulir 100 biji', 'Dilipatgandakan 2 kali lipat'], answer: 1 } },
+            { title: "5. Masa Kekhalifahan (Kodifikasi Al-Qur'an)", content: `<p class="mb-4 text-justify">Utsman menjabat sebagai Khalifah ketiga menggantikan Umar bin Khattab. Prestasi terbesarnya adalah mengumpulkan dan menyatukan bacaan Al-Qur'an (Mushaf Utsmani).</p><p class="mb-4 text-justify">Ekspansi Islam yang luas membuat munculnya berbagai dialek bacaan. Untuk mencegah perpecahan umat (menjaga ukhuwah dan <b>Cinta Tanah Air/Persatuan</b>), beliau menugaskan Zaid bin Tsabit untuk menyalin mushaf standar dan mengirimkannya ke berbagai daerah.</p>`, quiz: { type: 'mc', question: "Apa nama standar penyalinan Al-Qur'an yang dilakukan pada masa Khalifah Utsman?", options: ['Mushaf Makkiyah', 'Mushaf Utsmani', 'Mushaf Madaniyah'], answer: 1 } },
+            { title: "6. Syahid dan Teladan Sepanjang Masa", content: `<p class="mb-4 text-justify">Utsman bin Affan wafat sebagai syahid ketika rumahnya dikepung oleh para pemberontak. Meskipun mampu melawan, beliau melarang para sahabat membelanya demi mencegah tertumpahnya darah sesama muslim di kota suci Madinah.</p><div class="bg-gold-50 p-4 rounded-xl border border-gold-200 mb-4"><h4 class="font-bold text-gold-800 mb-2">Kesimpulan Nilai KBC</h4><ul class="list-disc pl-4 text-sm text-gray-700 space-y-1"><li>Rela berkorban demi kedamaian (Cinta Sesama).</li><li>Wakaf air/sumur (Cinta Kelestarian Lingkungan/Air).</li><li>Mengutamakan persatuan umat di atas ego (Cinta Tanah Air & Agama).</li></ul></div>`, quiz: { type: 'mc', question: "Mengapa Utsman melarang sahabat membelanya saat dikepung pemberontak?", options: ['Karena beliau sudah menyerah', 'Mencegah tertumpahnya darah sesama muslim (perdamaian)', 'Karena beliau tidak punya senjata'], answer: 1 } }
+        ];
+
+        function renderBelajar() {
+            const data = belajarData[appState.belajarSlide];
+            document.getElementById('belajar-counter').textContent = (appState.belajarSlide + 1);
+            document.getElementById('belajar-content').innerHTML = `
+                <div class="glass-panel rounded-2xl p-6 md:p-8 animate-fade-in shadow-lg border-t-4 border-emerald-500">
+                    <h2 class="text-2xl font-bold text-emerald-900 mb-6 border-b pb-2">${data.title}</h2>
+                    <div class="text-gray-800 leading-relaxed text-lg">${data.content}</div>
+                </div>
+            `;
+            const quizHtml = `
+                <div class="bg-gray-50 p-4 rounded-xl border border-gray-200 shadow-inner">
+                    <p class="font-bold text-gray-800 mb-3 text-sm flex items-center gap-2"><i class="fas fa-question-circle text-emerald-600"></i> Jawab Pertanyaan untuk Lanjut:</p>
+                    <p class="text-sm mb-3">${data.quiz.question}</p>
+                    <div class="flex flex-col gap-2">
+                        ${data.quiz.options.map((opt, i) => `
+                            <button onclick="checkBelajarQuiz(${i}, ${data.quiz.answer})" class="w-full text-left px-4 py-2 rounded-lg border border-gray-300 hover:bg-emerald-50 hover:border-emerald-500 transition text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-emerald-200 bg-white">
+                                ${String.fromCharCode(65 + i)}. ${opt}
+                            </button>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+            document.getElementById('belajar-quiz-container').innerHTML = quizHtml;
+        }
+
+        function checkBelajarQuiz(selectedIndex, correctIndex) {
+            if (selectedIndex === correctIndex) {
+                showToast('Tepat sekali! Melanjutkan...', 'success');
+                setTimeout(() => {
+                    if (appState.belajarSlide < belajarData.length - 1) {
+                        appState.belajarSlide++;
+                        renderBelajar();
+                    } else {
+                        appState.unlockedBermain = true;
+                        document.getElementById('progress-belajar').style.width = '100%';
+                        showToast('Selamat! Anda telah membuka menu BERMAIN.', 'success');
+                        navigate('belajar-screen', 'main-menu-screen');
+                        initMainMenu();
+                    }
+                }, 1000);
+            } else {
+                showToast('Jawaban masih kurang tepat. Coba lagi!', 'error');
+            }
+        }
+
+        // --- DATA MATERI BERMAIN ---
+        const bermainData = [
+            { type: 'mc', stimulus: `<b>Kisah Pak Hasan di Pesisir Pohuwato</b><br>Di wilayah pesisir Kabupaten Pohuwato, sebagian besar penduduk bermata pencaharian sebagai nelayan dan pedagang hasil laut. Suatu hari, perahu motor milik Pak Hasan rusak parah akibat badai malam di sekitar perairan Pantai Pohon Cinta. Pak Hasan tidak memiliki biaya untuk memperbaikinya, sehingga keluarganya terancam kehilangan sumber penghidupan utama.<br><br>Mendengar hal itu, seorang saudagar kaya di kompleks pasar Marisa yang terkenal dermawan segera mendatangi Pak Hasan. Ia tidak hanya membelikan mesin perahu yang baru, tetapi juga memberikan modal tambahan untuk keluarga Pak Hasan. Saudagar tersebut tidak mengharapkan balasan apapun kecuali ridha Allah SWT. Tindakan saudagar di Pohuwato ini sangat sejalan dengan sifat teladan salah satu Khulafaur Rasyidin yang dikenal tidak pernah ragu mengeluarkan harta untuk membantu sesama muslim yang sedang dalam kesulitan.`, q: "Tokoh sahabat Nabi yang sifatnya paling relevan dengan kisah kedermawanan saudagar di Pohuwato tersebut adalah...", options: ['Abu Bakar Ash-Shiddiq', 'Umar bin Khattab', 'Utsman bin Affan'], ans: 2 },
+            { type: 'match', stimulus: `<b>Kelestarian Ekosistem dan Wakaf Air</b><br>Krisis air bersih terkadang menjadi masalah bagi beberapa pemukiman padat di daerah pesisir. Di masa lalu, ketika kaum Muslimin hijrah ke Madinah, mereka juga menghadapi monopoli sumber air oleh pihak tertentu yang menjual air dengan harga sangat tinggi. Mengingat pentingnya air bagi kehidupan manusia dan kelestarian ekosistem alam, seorang sahabat Nabi menggunakan hartanya yang melimpah untuk membebaskan sumber air tersebut. Ia membelinya secara penuh dan mewakafkannya untuk seluruh penduduk Madinah, miskin maupun kaya.<br><br>Tindakan konservasi dan wakaf sosial ini merupakan bentuk "Curriculum Berbasis Cinta" pada alam dan sesama.`, q: "Jodohkanlah informasi berikut dengan tepat dengan mengklik tombol secara berurutan (Klik Konsep, lalu klik Pasangannya).", pairs: [{ left: 'Pemilik Dua Cahaya', right: 'Dzunnurain' }, { left: 'Wakaf Air Bersih', right: 'Sumur Ruma' }] },
+            { type: 'mc_complex', stimulus: `<b>Solidaritas Pedagang dan Nelayan</b><br>Masyarakat di dataran rendah Pohuwato saling bergantung satu sama lain. Hasil tangkapan nelayan dibeli oleh pedagang, dan pedagang menyuplai kebutuhan hidup nelayan. Dalam Islam, perniagaan yang jujur dan membawa berkah sangat diutamakan.<br><br>Utsman bin Affan r.a. adalah seorang saudagar sukses. Beliau mencontohkan bahwa kekayaan bukanlah tujuan akhir, melainkan alat untuk mencapai kemuliaan akhirat. Ketika pasukan Muslim membutuhkan persiapan logistik dan persenjataan dalam Perang Tabuk (Jaisyul 'Usrah), Utsman menyumbangkan 300 ekor unta beserta pelananya, 50 ekor kuda, dan 1.000 dinar emas yang diserahkan langsung ke pangkuan Rasulullah SAW. Nabi sampai bersabda bahwa tidak ada yang membahayakan Utsman setelah apa yang ia lakukan hari itu.`, q: "Berdasarkan stimulus di atas, manakah DUA pernyataan yang mencerminkan nilai Kurikulum Berbasis Cinta (Cinta Sesama dan Agama) dari sosok Utsman?", options: ['Mengumpulkan harta semata-mata untuk diwariskan kepada keluarganya.', 'Menggunakan kekayaan untuk mendukung perjuangan umat Islam di masa krisis.', 'Menjaga ukhuwah dengan menyumbangkan aset perniagaannya (unta, kuda, dinar).', 'Menjual air sumur kepada pasukan dengan harga yang lebih murah.'], ans: [1, 2] },
+            { type: 'mc', stimulus: `<b>Menjaga Hutan Mangrove Pantai Pohon Cinta</b><br>Lingkungan yang asri merupakan anugerah Allah yang wajib dijaga (Cinta Alam). Di kawasan Pantai Pohon Cinta, penanaman mangrove digalakkan untuk mencegah abrasi. Sikap kepedulian terhadap kelestarian ini sejalan dengan rasa malu (haya') untuk berbuat kerusakan di bumi. Utsman bin Affan dikenal memiliki rasa malu yang sangat tinggi, yang mencegahnya dari maksiat dan pengerusakan.`, q: "Apa dampak dari sifat pemalu yang dimiliki Utsman bin Affan terhadap kehidupannya?", options: ['Membuatnya sulit bergaul dan berdagang', 'Mencegahnya dari perbuatan tercela dan maksiat', 'Menjadikannya mudah ditipu oleh pedagang lain'], ans: 1 },
+            { type: 'mc', stimulus: `<b>Keanekaragaman Budaya dan Persatuan</b><br>Pohuwato didiami oleh beragam suku dan latar belakang profesi (nelayan, penambang, petani). Perbedaan ini bisa menjadi rahmat jika dikelola dengan baik, atau memicu konflik jika dibiarkan tanpa aturan yang menyatukan. Pada masa Khalifah Utsman, perluasan wilayah Islam melahirkan keragaman dialek dalam membaca Al-Qur'an. Perselisihan mulai muncul di antara pasukan muslim dari Syam dan Irak.`, q: "Kebijakan strategis apa yang diambil Utsman untuk mencegah perpecahan umat akibat perbedaan bacaan?", options: ['Memerangi kelompok yang membaca dengan dialek berbeda', 'Menyatukan umat dengan satu mushaf standar (Mushaf Utsmani)', 'Melarang masyarakat membaca Al-Qur\'an'], ans: 1 },
+            { type: 'mc', stimulus: `<b>Cinta Tanah Air dalam Mengelola Konflik</b><br>Sebuah prinsip penting dalam Kurikulum Berbasis Cinta adalah mencintai kedamaian di negeri sendiri. Di akhir masa jabatannya, akibat termakan fitnah yang disebarkan Abdullah bin Saba, sekelompok pemberontak mengepung rumah Khalifah Utsman. Sahabat-sahabat muda seperti Hasan, Husain, dan Abdullah bin Zubair bersiap dengan pedang terhunus membela Sang Khalifah. Namun, Utsman memerintahkan mereka untuk menyingkir.`, q: "Alasan utama Utsman melarang pertumpahan darah demi membelanya adalah...", options: ['Menjaga kesucian Madinah dari darah sesama muslim', 'Merasa takut melihat pedang', 'Menunggu bantuan pasukan dari Syam'], ans: 0 },
+            { type: 'mc', stimulus: `<b>Karakteristik Pekerja Keras</b><br>Sebagian penduduk Pohuwato berprofesi sebagai penambang yang bekerja keras mencari emas. Harta yang didapat dengan cucuran keringat ini memiliki nilai keberkahan jika disalurkan di jalan Allah. Utsman bin Affan adalah contoh nyata konglomerat yang bekerja keras, cerdas berniaga, namun hatinya tidak tertambat pada dunia.`, q: "Ayat Al-Qur'an (Al-Baqarah 261) mengumpamakan pahala orang yang berinfak seperti...", options: ['Gunung emas yang menjulang tinggi', 'Sebiji benih yang menumbuhkan 7 bulir, tiap bulir 100 biji', 'Air laut yang tidak pernah habis'], ans: 1 },
+            { type: 'mc', stimulus: `<b>Tanggung Jawab Sosial</b><br>Kepedulian terhadap lingkungan sekitar, seperti membantu tetangga nelayan yang hasil tangkapannya sepi, adalah aplikasi Cinta Sesama (KBC). Utsman sering kali membeli gandum dan makanan dalam jumlah besar pada masa paceklik, lalu membagikannya secara cuma-cuma kepada fakir miskin di Madinah, menolak tawaran pedagang luar yang ingin membelinya dengan harga berlipat ganda.`, q: "Sikap Utsman membagikan gandum secara gratis di masa paceklik mencerminkan sifat...", options: ['Kedermawanan (As-Sakhaw)', 'Keberanian (Asy-Syaja\'ah)', 'Keadilan (Al-Adl)'], ans: 0 },
+            { type: 'mc', stimulus: `<b>Menghargai Wanita</b><br>Pernikahan adalah ikatan suci. Utsman sangat mencintai dan menghargai istrinya, Ruqayyah putri Rasulullah. Ketika Perang Badar berkecamuk, Ruqayyah jatuh sakit parah. Rasulullah memerintahkan Utsman untuk tetap di Madinah merawat istrinya, dan tetap memberikan bagian harta rampasan perang (ghanimah) kepadanya.`, q: "Apa gelar yang menegaskan ikatan suci Utsman dengan keluarga Nabi?", options: ['Saifullah Al-Maslul', 'Dzunnurain', 'Al-Amin'], ans: 1 },
+            { type: 'mc', stimulus: `<b>Pemimpin yang Sabar</b><br>Menghadapi berbagai tantangan dalam mengelola masyarakat yang heterogen membutuhkan kesabaran luar biasa. Sebagaimana QS. Fussilat ayat 35 menyatakan bahwa sifat baik hanya dianugerahkan kepada orang yang sabar. Selama pengepungan rumahnya berhari-hari, Utsman dikurangi pasokan airnya. Padahal beliau lah yang dulu membelikan sumur untuk umat Islam.`, q: "Sikap Utsman saat menghadapi fitnah dan pengepungan adalah...", options: ['Marah dan membalas dendam', 'Sabar, tawakal, dan tidak ingin ada pertumpahan darah', 'Melarikan diri ke luar kota'], ans: 1 }
+        ];
+
+        let selectedMatchPair = null;
+        let matchAnswers = {};
+        
+        function renderBermain() {
+            const data = bermainData[appState.bermainQ];
+            document.getElementById('bermain-counter').textContent = (appState.bermainQ + 1);
+            let interactionHtml = '';
+
+            if (data.type === 'mc') {
+                interactionHtml = `<div class="space-y-3 mt-6">${data.options.map((opt, i) => `<button onclick="submitBermain(${i}, ${data.ans})" class="w-full text-left px-5 py-3 bg-white rounded-xl border-2 border-blue-200 hover:border-blue-500 hover:bg-blue-50 transition shadow-sm font-medium text-gray-700"><span class="inline-block w-8 h-8 bg-blue-100 text-blue-700 rounded-full text-center leading-8 font-bold mr-2">${String.fromCharCode(65 + i)}</span> ${opt}</button>`).join('')}</div>`;
+            } else if (data.type === 'match') {
+                matchAnswers = {};
+                interactionHtml = `<div class="mt-6 flex flex-col md:flex-row gap-4 justify-between" id="match-container"><div class="flex-1 space-y-3" id="match-left">${data.pairs.map((p, i) => `<button id="m-left-${i}" onclick="selectMatch('left', ${i}, '${p.left}')" class="w-full px-4 py-3 bg-white border-2 border-dashed border-gray-300 rounded-xl text-center text-sm font-semibold hover:border-blue-500 transition">${p.left}</button>`).join('')}</div><div class="flex-1 space-y-3" id="match-right">${[...data.pairs].sort(() => Math.random() - 0.5).map((p, i) => `<button id="m-right-${i}" onclick="selectMatch('right', ${i}, '${p.right}', '${p.left}')" class="w-full px-4 py-3 bg-white border-2 border-dashed border-gray-300 rounded-xl text-center text-sm font-semibold hover:border-blue-500 transition">${p.right}</button>`).join('')}</div></div><button onclick="checkMatch()" class="mt-6 w-full py-3 bg-blue-600 text-white font-bold rounded-xl hover:bg-blue-700">Cek Jawaban Menjodohkan</button>`;
+            } else if (data.type === 'mc_complex') {
+                interactionHtml = `<div class="space-y-3 mt-6" id="complex-container">${data.options.map((opt, i) => `<label class="flex items-start gap-3 p-3 bg-white border-2 border-blue-100 rounded-xl cursor-pointer hover:bg-blue-50 transition"><input type="checkbox" value="${i}" class="complex-cb mt-1 w-5 h-5 text-blue-600"><span class="text-sm text-gray-700">${opt}</span></label>`).join('')}</div><button onclick="checkComplex([${data.ans}])" class="mt-6 w-full py-3 bg-blue-600 text-white font-bold rounded-xl hover:bg-blue-700">Konfirmasi Jawaban</button>`;
+            }
+
+            document.getElementById('bermain-content').innerHTML = `<div class="bg-white rounded-3xl p-6 md:p-8 shadow-lg border-t-8 border-blue-500 animate-slide-up"><div class="bg-blue-50 p-5 rounded-2xl border border-blue-100 mb-6 text-sm text-gray-800 text-justify leading-relaxed"><span class="inline-block bg-blue-200 text-blue-800 text-xs font-bold px-2 py-1 rounded mb-2"><i class="fas fa-book-reader"></i> Teks Stimulus (Literasi)</span><br>${data.stimulus}</div><h3 class="text-lg font-bold text-gray-900 mb-4">${data.q}</h3>${interactionHtml}</div>`;
+        }
+
+        let tempMatch = { left: null, right: null, leftEl: null, rightEl: null };
+        function selectMatch(side, idx, text, targetLeft) {
+            const btn = document.getElementById(`m-${side}-${idx}`);
+            if (side === 'left') {
+                if(tempMatch.leftEl) tempMatch.leftEl.classList.replace('border-blue-500', 'border-gray-300');
+                tempMatch.left = text;
+                tempMatch.leftEl = btn;
+                btn.classList.replace('border-gray-300', 'border-blue-500');
+            } else {
+                if(tempMatch.rightEl) tempMatch.rightEl.classList.replace('border-blue-500', 'border-gray-300');
+                tempMatch.right = targetLeft; 
+                tempMatch.rightEl = btn;
+                btn.classList.replace('border-gray-300', 'border-blue-500');
+            }
+
+            if (tempMatch.left && tempMatch.right) {
+                if (tempMatch.left === tempMatch.right) {
+                    tempMatch.leftEl.classList.add('bg-green-100', 'border-green-500', 'text-green-700');
+                    tempMatch.rightEl.classList.add('bg-green-100', 'border-green-500', 'text-green-700');
+                    tempMatch.leftEl.disabled = true; tempMatch.rightEl.disabled = true;
+                    matchAnswers[tempMatch.left] = true;
+                } else {
+                    showToast('Pasangan tidak tepat!', 'error');
+                    tempMatch.leftEl.classList.replace('border-blue-500', 'border-gray-300');
+                    tempMatch.rightEl.classList.replace('border-blue-500', 'border-gray-300');
+                }
+                tempMatch = { left: null, right: null, leftEl: null, rightEl: null };
+            }
+        }
+        
+        function checkMatch() {
+            if (Object.keys(matchAnswers).length === bermainData[appState.bermainQ].pairs.length) {
+                submitBermain(1, 1); 
+            } else {
+                showToast('Selesaikan semua pasangan!', 'error');
+            }
+        }
+        
+        function checkComplex(answersArray) {
+            const checkboxes = document.querySelectorAll('.complex-cb');
+            let selected = [];
+            checkboxes.forEach(cb => { if(cb.checked) selected.push(parseInt(cb.value)); });
+            
+            selected.sort(); answersArray.sort();
+            if (JSON.stringify(selected) === JSON.stringify(answersArray)) {
+                submitBermain(1, 1);
+            } else {
+                submitBermain(0, 1);
+            }
+        }
+
+        function submitBermain(userAns, correctAns) {
+            const isCorrect = userAns === correctAns;
+            
+            // Catat ke state untuk GAS
+            appState.detailJawaban.push(`Bermain Q${appState.bermainQ + 1}: ${isCorrect ? 'Benar' : 'Salah'}`);
+
+            if (isCorrect) {
+                appState.skorBermain += 10;
+                showToast('Hebat! Jawaban Anda Benar.', 'success');
+            } else {
+                showToast('Jawaban kurang tepat.', 'error');
+            }
+
+            setTimeout(() => {
+                if (appState.bermainQ < bermainData.length - 1) {
+                    appState.bermainQ++;
+                    renderBermain();
+                } else {
+                    appState.unlockedBerlatih = true;
+                    showToast(`Bermain selesai! Skor Anda: ${appState.skorBermain}`, 'success');
+                    navigate('bermain-screen', 'main-menu-screen');
+                    initMainMenu();
+                }
+            }, 1200);
+        }
+
+        // --- DATA MATERI BERLATIH ---
+        const berlatihData = [
+            { level: 1, weight: 8, stimulus: "Utsman bin Affan merupakan salah satu sahabat yang dijamin masuk surga. Beliau berasal dari kabilah Bani Umayyah dari suku Quraisy. Karena kedermawanannya, beliau sangat dicintai oleh masyarakat, mirip dengan tokoh masyarakat lokal yang disegani karena budi pekertinya.", q: "Suku dan kabilah asal Utsman bin Affan adalah...", options: ['Quraisy, Bani Hasyim', 'Quraisy, Bani Umayyah', 'Khazraj, Bani Najjar', 'Aus, Bani Abdul Asyhal'], ans: 1 },
+            { level: 1, weight: 8, stimulus: "Masa kekhalifahan Utsman bin Affan berlangsung selama kurang lebih 12 tahun. Pada paruh pertama kekhalifahannya, kesejahteraan umat Islam meningkat tajam dan wilayah kekuasaan meluas secara signifikan.", q: "Utsman bin Affan merupakan Khalifah ke-...", options: ['Pertama', 'Kedua', 'Ketiga', 'Keempat'], ans: 2 },
+            { level: 1, weight: 8, stimulus: "Rasulullah SAW bersabda mengenai Utsman: 'Tidakkah aku merasa malu kepada seseorang yang malaikat saja merasa malu kepadanya'. Hal ini menunjukkan tingginya karakter moral Utsman.", q: "Sifat utama Utsman yang disebutkan dalam hadits tersebut adalah...", options: ['Pemarah', 'Pemalu (Haya\')', 'Penakut', 'Pendendam'], ans: 1 },
+            { level: 2, weight: 10, stimulus: "Perhatikan narasi berikut: 'Pak Ridwan, seorang nelayan di Pantai Pohon Cinta, melihat ada tetangganya yang kesulitan air bersih akibat sumur bornya rusak. Pak Ridwan kemudian menyambungkan pipa dari sumur miliknya agar tetangganya bisa mengambil air secara gratis.'", q: "Tindakan Pak Ridwan paling tepat dikaitkan dengan keteladanan Utsman bin Affan dalam peristiwa...", options: ['Perang Badar', 'Pernikahan dengan putri Nabi', 'Pembelian Sumur Ruma', 'Kodifikasi Al-Qur\'an'], ans: 2 },
+            { level: 2, weight: 10, stimulus: "Sikap ukhuwah (persaudaraan) harus ditanamkan sejak dini (Kurikulum Berbasis Cinta). Pada saat Islam menyebar hingga ke luar Jazirah Arab (seperti ke Armenia dan Azerbaijan), para sahabat yang ikut berperang memiliki perbedaan cara membaca Al-Qur'an yang memicu keributan.", q: "Sebagai pemimpin yang mencintai kedamaian umatnya, apa tindakan aplikatif Utsman menyelesaikan masalah tersebut?", options: ['Menarik mundur pasukan dari Armenia', 'Menulis mushaf induk (Mushaf Utsmani) dan menyebarkannya', 'Menghukum sahabat yang berselisih', 'Membiarkan perbedaan agar menjadi rahmat'], ans: 1 },
+            { level: 2, weight: 10, stimulus: "Kedermawanan bukan berarti membuang-buang harta tanpa perhitungan, melainkan membelanjakannya di jalan Allah pada saat yang tepat. Hal ini dipraktikkan Utsman saat Jaisyul 'Usrah diberangkatkan ke Tabuk pada musim panas yang ekstrem.", q: "Berdasarkan nilai KBC, hikmah apa yang bisa diterapkan oleh pengusaha (pedagang pasar Marisa) dari peristiwa Jaisyul 'Usrah?", options: ['Menimbun barang dagangan saat krisis', 'Menjual barang dengan harga mahal ke pemerintah', 'Mendonasikan sebagian keuntungan untuk kepentingan masyarakat luas', 'Berhenti berdagang saat musim panas'], ans: 2 },
+            { level: 2, weight: 10, stimulus: "Utsman tidak menggunakan fasilitas negara untuk kepentingan pribadinya. Meskipun sebagai kepala negara beliau berhak mendapat gaji, beliau tidak mengambilnya dan justru memberikan hartanya untuk kas negara.", q: "Sikap Utsman ini merupakan penerapan dari nilai...", options: ['Zuhud (tidak terikat dunia) dan Integritas', 'Sombong karena sudah kaya', 'Pencitraan politik', 'Takut dituduh korupsi'], ans: 0 },
+            { level: 3, weight: 12, stimulus: "Di sebuah desa pesisir di Pohuwato, terjadi perdebatan panas antara kelompok masyarakat adat nelayan dan pekerja tambang mengenai tata cara adat lokal. Masing-masing mengklaim paling benar hingga hampir terjadi bentrok fisik. Kepala desa memutuskan untuk memanggil tokoh dari kedua belah pihak, menyusun sebuah aturan baku tertulis yang disepakati bersama berdasarkan musyawarah mufakat, lalu aturan lama yang memicu konflik dibakar/dihapus agar tidak ada lagi perdebatan.", q: "Analisis tindakan kepala desa tersebut! Kebijakan ini memiliki analogi yang paling kuat dengan kebijakan monumental Khalifah Utsman bin Affan dalam hal...", options: ['Kebijakan ekonomi membebaskan pajak', 'Kebijakan menyatukan bacaan Al-Qur\'an menjadi Mushaf Utsmani dan membakar mushaf pribadi yang berbeda', 'Kebijakan perluasan wilayah ke Afrika', 'Kebijakan pembelian sumur Ruma'], ans: 1 },
+            { level: 3, weight: 12, stimulus: "Utsman bin Affan terbunuh di rumahnya sendiri dalam kondisi sedang membaca Al-Qur'an. Saat rumahnya dikepung, beliau memiliki otoritas memerintahkan pasukan atau membiarkan sahabat membunuhnya (pemberontak). Namun beliau bersabda, 'Aku tidak ingin menjadi orang pertama yang menumpahkan darah umat Muhammad di Madinah.'", q: "Bagaimana Anda mengevaluasi keputusan Utsman ini dalam konteks 'Cinta Tanah Air dan Kedamaian' (Moderasi Beragama)?", options: ['Utsman mengambil keputusan yang salah karena menyebabkan dirinya terbunuh.', 'Utsman bertindak pengecut menghindari pertarungan fisik.', 'Utsman menunjukkan level tertinggi moderasi beragama, lebih memilih mengorbankan nyawanya sendiri daripada memicu perang saudara berkepanjangan di pusat peradaban Islam.', 'Utsman menunggu bantuan yang terlambat datang.'], ans: 2 },
+            { level: 3, weight: 12, stimulus: "Baca QS. Al-Baqarah: 261 tentang sedekah seperti biji yang menumbuhkan 700 biji lainnya. Di pesisir Pohuwato, terdapat program 'Sedekah Mangrove', di mana warga menyisihkan hartanya untuk membeli bibit mangrove dan menanamnya bersama. Beberapa tahun kemudian, mangrove itu mencegah abrasi desa dan menjadi tempat berkembang biaknya kepiting, yang meningkatkan ekonomi desa.", q: "Berdasarkan prinsip amal jariyah Utsman dan ayat tersebut, kesimpulan paling komprehensif terkait program Sedekah Mangrove adalah...", options: ['Sedekah hanya boleh dalam bentuk uang atau makanan, bukan tanaman.', 'Sedekah mangrove adalah investasi duniawi semata untuk ekonomi.', 'Sedekah mangrove merepresentasikan ayat tersebut; modal kecil (bibit) mendatangkan manfaat berlipat ganda (pahala pelestarian alam, keselamatan warga, dan ekonomi), wujud nyata KBC.', 'Menanam mangrove adalah tugas pemerintah, warga sebaiknya sedekah ke masjid saja.'], ans: 2 }
+        ];
+
+        function checkAbortBerlatih() {
+            if(confirm("Apakah Anda yakin ingin keluar dari Asesmen? Progres akan hilang.")) {
+                navigate('berlatih-screen', 'main-menu-screen');
+            }
+        }
+
+        function renderBerlatih() {
+            const data = berlatihData[appState.berlatihQ];
+            document.getElementById('berlatih-counter').textContent = (appState.berlatihQ + 1);
+            
+            let badgeClass = data.level === 1 ? 'bg-green-500' : (data.level === 2 ? 'bg-blue-500' : 'bg-red-500');
+            let levelText = data.level === 1 ? 'Level 1 (Dasar)' : (data.level === 2 ? 'Level 2 (Penerapan)' : 'Level 3 (HOTS)');
+
+            document.getElementById('berlatih-content').innerHTML = `
+                <div class="bg-white rounded-3xl p-6 md:p-10 shadow-xl border-t-8 border-gold-500 animate-slide-up">
+                    <div class="flex justify-between items-center mb-4">
+                        <span class="text-white text-xs font-bold px-3 py-1 rounded-full ${badgeClass}">${levelText}</span>
+                        <span class="text-gray-500 text-sm font-semibold">Bobot: ${data.weight} Poin</span>
+                    </div>
+                    
+                    <div class="bg-gold-50 p-5 rounded-2xl border border-gold-200 mb-6 text-sm text-gray-800 text-justify leading-relaxed">
+                        ${data.stimulus}
+                    </div>
+                    
+                    <h3 class="text-xl font-bold text-gray-900 mb-6">${data.q}</h3>
+                    
+                    <div class="space-y-4">
+                        ${data.options.map((opt, i) => `
+                            <button onclick="submitBerlatih(${i}, ${data.ans}, ${data.level}, ${data.weight})" class="w-full text-left px-5 py-4 bg-white rounded-xl border-2 border-gray-200 hover:border-gold-500 hover:bg-gold-50 transition shadow-sm font-medium text-gray-700 focus:outline-none focus:border-gold-600 focus:ring-2 focus:ring-gold-200">
+                                <span class="inline-block w-8 h-8 bg-gray-100 text-gray-600 rounded-full text-center leading-8 font-bold mr-3">${String.fromCharCode(65 + i)}</span> ${opt}
+                            </button>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        function submitBerlatih(userAns, correctAns, level, weight) {
+            const isCorrect = userAns === correctAns;
+            
+            // Catat ke state untuk GAS
+            appState.detailJawaban.push(`Berlatih Q${appState.berlatihQ + 1}: ${isCorrect ? 'Benar' : 'Salah'}`);
+            
+            if (isCorrect) {
+                appState.skorBerlatih += weight;
+                if(level === 1) appState.lvl1Correct++;
+                if(level === 2) appState.lvl2Correct++;
+                if(level === 3) appState.lvl3Correct++;
+            }
+
+            if (appState.berlatihQ < berlatihData.length - 1) {
+                appState.berlatihQ++;
+                renderBerlatih();
+            } else {
+                finishAsesmen();
+            }
+        }
+
+        function finishAsesmen() {
+            showToast('Asesmen Selesai! Menyusun Laporan...', 'success');
+            
+            document.getElementById('report-nama').textContent = appState.studentName;
+            document.getElementById('report-kelas').textContent = appState.studentClass;
+            
+            const dateStr = new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
+            document.getElementById('report-tanggal').textContent = dateStr;
+            document.getElementById('report-ttd-tanggal').textContent = dateStr;
+
+            document.getElementById('report-skor-bermain').textContent = `${appState.skorBermain}/100`;
+            document.getElementById('report-skor-berlatih').textContent = appState.skorBerlatih;
+            
+            document.getElementById('report-lvl1').textContent = `${appState.lvl1Correct}/3 Benar`;
+            document.getElementById('report-lvl2').textContent = `${appState.lvl2Correct}/4 Benar`;
+            document.getElementById('report-lvl3').textContent = `${appState.lvl3Correct}/3 Benar`;
+
+            let predikat = "";
+            let rek = "";
+            if (appState.skorBerlatih >= 90) { 
+                predikat = "SANGAT BAIK (A)"; 
+                rek = "Sangat luar biasa! Anda tidak hanya memahami konsep, tetapi mampu menalar HOTS dengan sangat kritis.";
+            } else if (appState.skorBerlatih >= 75) { 
+                predikat = "BAIK (B)"; 
+                rek = "Kompetensi dasar sudah dikuasai dengan baik. Terus tingkatkan kemampuan analisis pemecahan masalah (HOTS).";
+            } else { 
+                predikat = "PERLU BIMBINGAN (C)"; 
+                rek = "Mohon ulangi kembali materi BELAJAR, terutama dalam memahami kaitan sejarah dengan penerapannya di masa kini.";
+            }
+            document.getElementById('report-predikat').textContent = `PREDIKAT: ${predikat}`;
+            document.getElementById('report-rekomendasi').textContent = rek;
+
+            // MENGIRIM DATA KE GOOGLE APPS SCRIPT
+            sendDataToGAS();
+
+            setTimeout(() => {
+                navigate('berlatih-screen', 'report-screen');
+            }, 1000);
+        }
+
+        // --- MENGIRIM DATA KE BACKEND GAS ---
+        function sendDataToGAS() {
+            showToast('Menyimpan nilai ke database guru...', 'info');
+            
+            // Susun data soal (dikirim sekali untuk sheet "Data Soal")
+            let soalData = [];
+            bermainData.forEach((d) => {
+                soalData.push({ 
+                    menu: 'Bermain', 
+                    soal: d.q || 'Tantangan Menjodohkan / Kompleks', 
+                    pilihan: JSON.stringify(d.options || d.pairs || []), 
+                    jawaban_benar: JSON.stringify(d.ans || 'Lihat kunci') 
+                });
+            });
+            berlatihData.forEach((d) => {
+                soalData.push({ 
+                    menu: 'Berlatih', 
+                    soal: d.q, 
+                    pilihan: JSON.stringify(d.options), 
+                    jawaban_benar: d.options[d.ans] || d.ans 
+                });
+            });
+
+            let totalBenar = appState.detailJawaban.filter(x => x.includes('Benar')).length;
+            let totalSalah = appState.detailJawaban.length - totalBenar;
+
+            const payload = {
+                nama: appState.studentName,
+                kelas: appState.studentClass,
+                benar: totalBenar,
+                salah: totalSalah,
+                detail: appState.detailJawaban.join('\n'), // Gabungkan dengan enter
+                soal: soalData
+            };
+
+            // Fetch request (dikirim sebagai text/plain untuk bypass CORS di GAS Web App)
+            fetch(GAS_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'text/plain;charset=utf-8',
+                },
+                body: JSON.stringify(payload)
+            })
+            .then(() => {
+                console.log('Request dikirim ke server.');
+                showToast('Nilai berhasil terekam di database.', 'success');
+            })
+            .catch(error => {
+                console.error('Error saat menyimpan ke server:', error);
+                showToast('Koneksi internet bermasalah. Nilai tidak tersimpan online.', 'error');
+            });
+        }
+
+        // --- PDF GENERATION ---
+        function generatePDF() {
+            showToast('Menyiapkan dokumen PDF...', 'info');
+            const element = document.getElementById('pdf-content');
+            const opt = {
+                margin:       10,
+                filename:     `Laporan_Akidah_Akhlak_${appState.studentName.replace(/\s+/g, '_')}.pdf`,
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { scale: 2, useCORS: true, letterRendering: true },
+                jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+
+            try {
+                html2pdf().set(opt).from(element).save().then(() => {
+                    showToast('PDF berhasil diunduh.', 'success');
+                }).catch(err => {
+                    console.error(err);
+                    window.print();
+                });
+            } catch (e) {
+                window.print();
+            }
+        }
+    </script>
+</body>
+</html>
